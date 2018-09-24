@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Northwind.API.DataAccess;
 
 namespace Northwind.API.Controllers
 {
@@ -11,10 +12,17 @@ namespace Northwind.API.Controllers
     [Route("api/Products")]
     public class ProductsController : Controller
     {
-        [HttpGet("")]
-        public string Get()
+        private IProductDal _productDal;
+
+        public ProductsController(IProductDal productDal)
         {
-            return "Product 1";
+            _productDal = productDal;
+        }
+        [HttpGet("")]
+        public IActionResult Get()
+        {
+            var products = _productDal.GetList();
+            return Ok(products);
         }
     }
 }

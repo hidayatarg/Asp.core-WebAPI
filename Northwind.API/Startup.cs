@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Northwind.API.DataAccess;
 
 namespace Northwind.API
 {
@@ -24,6 +25,7 @@ namespace Northwind.API
         // Place of Depenedency Injection
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IProductDal, EfProductDal>();
             services.AddMvc();
         }
 
