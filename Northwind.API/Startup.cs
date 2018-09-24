@@ -37,6 +37,8 @@ namespace Northwind.API
                 app.UseDeveloperExceptionPage();
             }
 
+            // Routing mechanism as Default
+           // app.UseMvc(config => { config.MapRoute("DefaultRoute", "api/{controller}/{action}"); });
             app.UseMvc();
         }
     }

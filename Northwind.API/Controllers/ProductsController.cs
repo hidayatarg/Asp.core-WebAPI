@@ -11,6 +11,7 @@ namespace Northwind.API.Controllers
     [Route("api/Products")]
     public class ProductsController : Controller
     {
+        [HttpGet("")]
         public string Get()
         {
             return "Product 1";
