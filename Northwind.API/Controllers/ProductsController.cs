@@ -57,7 +57,17 @@ namespace Northwind.API.Controllers
         [HttpPost("")]
         public IActionResult Post([FromBody]Product product)
         {
-            return Ok();
+            try
+            {
+                _productDal.Add(product);
+                return new StatusCodeResult(201);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            return BadRequest();
         }
     }
 }
