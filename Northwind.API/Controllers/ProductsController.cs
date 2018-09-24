@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Northwind.API.DataAccess;
+using Northwind.API.Entities;
 
 namespace Northwind.API.Controllers
 {
@@ -18,6 +19,9 @@ namespace Northwind.API.Controllers
         {
             _productDal = productDal;
         }
+
+        //because the method name is GET:
+        //It will work with api/products
         [HttpGet("")]
         public IActionResult Get()
         {
@@ -45,6 +49,15 @@ namespace Northwind.API.Controllers
             }
 
             return BadRequest();
+        }
+        
+        // If you want to read the data from JSON/Text you need to add [from body]
+        // without it will not read the product
+
+        [HttpPost("")]
+        public IActionResult Post([FromBody]Product product)
+        {
+            return Ok();
         }
     }
 }
