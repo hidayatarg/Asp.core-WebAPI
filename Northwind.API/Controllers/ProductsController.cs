@@ -24,5 +24,27 @@ namespace Northwind.API.Controllers
             var products = _productDal.GetList();
             return Ok(products);
         }
+
+        //Product id in the routing should be same with parameter productID
+        [HttpGet("{productId}")]
+        public IActionResult Get(int productId)
+        {
+            try
+            {
+                var product = _productDal.Get(p => p.ProductId == productId);
+                if (product == null)
+                {
+                    return NotFound($"There is no product with Id= {productId}");
+                }
+                return Ok(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return BadRequest();
+        }
     }
 }
