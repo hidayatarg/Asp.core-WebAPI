@@ -100,5 +100,22 @@ namespace Northwind.API.Controllers
             }
             return BadRequest();
         }
+
+        [HttpGet("GetProductDetails")]
+        public IActionResult GetProductsWithDetails()
+        {
+            try
+            {
+                var result = _productDal.GetProductsWithDetails();
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return BadRequest();
+        }
     }
 }
