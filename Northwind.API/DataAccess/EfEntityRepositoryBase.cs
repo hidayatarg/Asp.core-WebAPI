@@ -27,7 +27,7 @@ namespace Northwind.API.DataAccess
             using (var context = new TContext())
             {
                 var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
+                addedEntity.State = EntityState.Deleted;
                 context.SaveChanges();
             }
         }
@@ -56,7 +56,7 @@ namespace Northwind.API.DataAccess
             using (var context = new TContext())
             {
                 var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
+                deletedEntity.State = EntityState.Modified;
                 context.SaveChanges();
             }
         }

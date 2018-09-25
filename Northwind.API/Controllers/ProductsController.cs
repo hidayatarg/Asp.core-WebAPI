@@ -69,5 +69,20 @@ namespace Northwind.API.Controllers
             }
             return BadRequest();
         }
+        [HttpPut("")]
+        public IActionResult Put([FromBody]Product product)
+        {
+            try
+            {
+                _productDal.Update(product);
+                return Ok(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            return BadRequest();
+        }
     }
 }
