@@ -84,5 +84,21 @@ namespace Northwind.API.Controllers
             }
             return BadRequest();
         }
+
+        [HttpDelete("{productId}")]
+        public IActionResult Delete(int productId)
+        {
+            try
+            {
+                _productDal.Delete(new Product{ProductId = productId});
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            return BadRequest();
+        }
     }
 }
