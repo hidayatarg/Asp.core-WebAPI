@@ -50,4 +50,46 @@ for that we need to rules first Invoke and
 we need http context to read the header data 
 Request delegate will provide to move between middleware
 
+```sh
+public class AuthenticationMiddleware
+{
+    private readonly RequestDelegate _next;
+
+    public AuthenticationMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+    public async Task Invoke(HttpContext context)
+    {
+        var authHeader = context.Request.Headers["Authorization"];
+
+        // Pass to next middleware
+        await _next(context);
+    }
+}
+
+```
+If you send a request header via postman and debug on the await _next you can see the middle ware first read the header
+Donot forget to add the middleware in the startup before the test
+```sh
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+            
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+    }
+
+    // authentication middleware
+    app.UseMiddleware<AuthenticationMiddleware>();
+
+    // Routing mechanism as Default
+    app.UseMvc(config =>
+    {
+        // Routing middleware
+        config.MapRoute("DefaultRoute", "api/{controller}/{action}");
+    });
+    app.UseMvc();
+}
+```
 
