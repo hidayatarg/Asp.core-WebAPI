@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Northwind.API.CustomMiddlewares;
 using Northwind.API.DataAccess;
 
 namespace Northwind.API
@@ -39,8 +40,15 @@ namespace Northwind.API
                 app.UseDeveloperExceptionPage();
             }
 
+            // authentication middleware
+            app.UseMiddleware<AuthenticationMiddleware>();
+
             // Routing mechanism as Default
-           // app.UseMvc(config => { config.MapRoute("DefaultRoute", "api/{controller}/{action}"); });
+            app.UseMvc(config =>
+            {
+                // Routing middleware
+                config.MapRoute("DefaultRoute", "api/{controller}/{action}");
+            });
             app.UseMvc();
         }
     }

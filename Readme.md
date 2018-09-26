@@ -22,3 +22,32 @@ should be
     }
 ```
 
+## Middlewares
+in startup we used a middleware, they are injected with app.
+```sh
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    {            
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        // Routing mechanism as Default 
+        app.UseMvc(config => 
+		{ 
+			//mvc middleware
+			config.MapRoute("DefaultRoute", "api/{controller}/{action}"); 
+		
+		});         
+    }
+```
+
+> Control if the person who request has proper authentication or not.
+
+### Custom Middleware
+We are creating a custom middleware to check the authentication
+for that we need to rules first Invoke and
+
+we need http context to read the header data 
+Request delegate will provide to move between middleware
+
+
